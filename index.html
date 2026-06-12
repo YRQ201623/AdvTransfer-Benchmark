@@ -22,145 +22,38 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
             background-size: 20px 20px;
             opacity: 0.3;
         }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .hero-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .hero h1 {
-            font-size: 2.8rem;
-            color: white;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.9);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .container {
-            max-width: 1100px;
-            margin: -40px auto 0;
-            padding: 0 20px 60px;
-            position: relative;
-            z-index: 2;
-        }
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 35px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-        .overview-card {
-            border-left: 4px solid #667eea;
-            background: linear-gradient(to right, rgba(102,126,234,0.05), white);
-        }
-        .overview-text {
-            font-size: 1.05rem;
-            color: #4a5568;
-            margin-bottom: 15px;
-        }
+        .hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .hero-icon { font-size: 48px; margin-bottom: 15px; display: inline-block; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        .hero h1 { font-size: 2.8rem; color: white; font-weight: 700; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .hero p { font-size: 1.2rem; color: rgba(255,255,255,0.9); max-width: 700px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: -40px auto 0; padding: 0 20px 60px; position: relative; z-index: 2; }
+        .card { background: white; border-radius: 16px; padding: 35px; margin-bottom: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.04); }
+        .card-title { font-size: 1.5rem; font-weight: 700; color: #667eea; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 2px solid #e2e8f0; }
+        .overview-card { border-left: 4px solid #667eea; background: linear-gradient(to right, rgba(102,126,234,0.05), white); }
+        .overview-text { font-size: 1.05rem; color: #4a5568; margin-bottom: 15px; }
         .overview-text:last-child { margin-bottom: 0; }
-        .overview-text a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px dashed #667eea;
-        }
+        .overview-text a { color: #667eea; text-decoration: none; font-weight: 600; border-bottom: 1px dashed #667eea; }
         .overview-text a:hover { border-bottom-style: solid; }
 
         /* Key Features */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-top: 10px;
-        }
-        .feature-item {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .feature-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(102,126,234,0.15);
-            border-color: #667eea;
-        }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 10px; }
+        .feature-item { background: white; border-radius: 12px; padding: 25px; border: 1px solid #e2e8f0; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #667eea, #764ba2); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+        .feature-item:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(102,126,234,0.15); border-color: #667eea; }
         .feature-item:hover::before { transform: scaleX(1); }
-        .feature-icon {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            display: block;
-        }
-        .feature-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        .feature-desc {
-            font-size: 0.95rem;
-            color: #718096;
-            line-height: 1.6;
-        }
+        .feature-icon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
+        .feature-title { font-size: 1.15rem; font-weight: 700; color: #667eea; margin-bottom: 10px; }
+        .feature-desc { font-size: 0.95rem; color: #718096; line-height: 1.6; }
 
-        /* Supported Methods */
-        .methods-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-top: 10px;
-        }
+        /* ========== Supported Methods 改进版 ========== */
+        .methods-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 10px; }
         .method-item {
             background: white;
             border-radius: 12px;
@@ -170,14 +63,11 @@
             position: relative;
             overflow: hidden;
         }
-        /* 默认显示顶部蓝线 */
         .method-item::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
             background: linear-gradient(90deg, #667eea, #764ba2);
         }
         .method-item:hover {
@@ -185,75 +75,78 @@
             box-shadow: 0 10px 25px rgba(102,126,234,0.12);
             border-color: #667eea;
         }
-        .method-icon {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            display: block;
+        .method-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+
+        /* 方法名区域：横向排列，不换行 */
+        .method-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
         }
         .method-name {
-            font-size: 1.05rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             color: #667eea;
-            margin-bottom: 6px;
             text-decoration: none;
-            display: inline-block;
         }
-        .method-name:hover {
-            text-decoration: underline;
+        .method-name:hover { text-decoration: underline; }
+
+        /* 标签组：横向排列 */
+        .method-tags {
+            display: flex;
+            gap: 6px;
+            align-items: center;
         }
+        .method-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid;
+        }
+        /* PyTorch 标签：蓝色系 */
+        .tag-pytorch {
+            color: #667eea;
+            background: rgba(102,126,234,0.08);
+            border-color: rgba(102,126,234,0.3);
+        }
+        .tag-pytorch:hover {
+            background: #667eea;
+            color: white;
+        }
+        /* TensorFlow 标签：橙色系 */
+        .tag-tf {
+            color: #ed8936;
+            background: rgba(237,137,54,0.08);
+            border-color: rgba(237,137,54,0.3);
+        }
+        .tag-tf:hover {
+            background: #ed8936;
+            color: white;
+        }
+
         .method-venue {
             font-size: 0.85rem;
             color: #718096;
+            margin-top: 4px;
         }
 
         /* Table */
-        .table-wrapper {
-            overflow-x: auto;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            margin-top: 15px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95rem;
-            background: white;
-        }
-        th {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 14px 16px;
-            text-align: left;
-            font-weight: 600;
-            cursor: pointer;
-            user-select: none;
-            white-space: nowrap;
-        }
+        .table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: white; }
+        th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 14px 16px; text-align: left; font-weight: 600; cursor: pointer; user-select: none; white-space: nowrap; }
         th:hover { opacity: 0.9; }
-        th .sort-icon {
-            margin-left: 6px;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-        td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #edf2f7;
-            color: #4a5568;
-        }
+        th .sort-icon { margin-left: 6px; font-size: 0.8rem; opacity: 0.7; }
+        td { padding: 12px 16px; border-bottom: 1px solid #edf2f7; color: #4a5568; }
         tr:nth-child(even) { background: #f8fafc; }
         tr:hover { background: #eef2ff; }
-        .method-name-td {
-            font-weight: 600;
-            color: #2d3748;
-        }
-        .best-value {
-            color: #38a169;
-            font-weight: 700;
-        }
-        .second-best {
-            color: #3182ce;
-            font-weight: 600;
-        }
+        .method-name-td { font-weight: 600; color: #2d3748; }
+        .best-value { color: #38a169; font-weight: 700; }
+        .second-best { color: #3182ce; font-weight: 600; }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
@@ -340,24 +233,57 @@
                 <span>Supported Attack Methods</span>
             </div>
             <div class="methods-grid">
+
+                <!-- FIA -->
                 <div class="method-item">
-                <span class="method-icon">📄</span>
-            <div>
-                <a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Wang_Feature_Importance-Aware_Transferable_Adversarial_Attacks_ICCV_2021_paper.pdf" class="method-name" target="_blank">FIA</a>
-                <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/methods/fia_pytorch.py" 
-                   target="_blank" 
-                   style="font-size:0.75rem; background:#667eea; color:white; padding:2px 6px; border-radius:4px; text-decoration:none; margin-left:6px;">
-                   Pytorch_Code
-                </a>
-                 <a href="https://github.com/hcguoO0/FIA" 
-                   target="_blank" 
-                   style="font-size:0.75rem; background:#667eea; color:white; padding:2px 6px; border-radius:4px; text-decoration:none; margin-left:6px;">
-                   Tensorflow_Code
-                </a>
-            </div>
-    <div class="method-venue">ICCV 2021</div>
-</div>
-                
+                    <span class="method-icon">📄</span>
+                    <div class="method-header">
+                        <a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Wang_Feature_Importance-Aware_Transferable_Adversarial_Attacks_ICCV_2021_paper.pdf" 
+                           class="method-name" target="_blank">FIA</a>
+                        <div class="method-tags">
+                            <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/methods/fia_pytorch.py" 
+                               class="method-tag tag-pytorch" target="_blank">PyTorch</a>
+                            <a href="https://github.com/hcguoO0/FIA" 
+                               class="method-tag tag-tf" target="_blank">TF</a>
+                        </div>
+                    </div>
+                    <div class="method-venue">ICCV 2021</div>
+                </div>
+
+                <!-- 占位模板：复制这段改名字和链接即可 -->
+                <div class="method-item">
+                    <span class="method-icon">📄</span>
+                    <div class="method-header">
+                        <a href="#" class="method-name" target="_blank">NAA</a>
+                        <div class="method-tags">
+                            <a href="#" class="method-tag tag-pytorch" target="_blank">PyTorch</a>
+                        </div>
+                    </div>
+                    <div class="method-venue">NeurIPS 2020</div>
+                </div>
+
+                <div class="method-item">
+                    <span class="method-icon">📄</span>
+                    <div class="method-header">
+                        <a href="#" class="method-name" target="_blank">COPIA</a>
+                        <div class="method-tags">
+                            <a href="#" class="method-tag tag-pytorch" target="_blank">PyTorch</a>
+                        </div>
+                    </div>
+                    <div class="method-venue">ICCV 2023</div>
+                </div>
+
+                <div class="method-item">
+                    <span class="method-icon">📄</span>
+                    <div class="method-header">
+                        <a href="#" class="method-name" target="_blank">FGSM-RS</a>
+                        <div class="method-tags">
+                            <a href="#" class="method-tag tag-pytorch" target="_blank">PyTorch</a>
+                        </div>
+                    </div>
+                    <div class="method-venue">ICLR 2020</div>
+                </div>
+
             </div>
         </div>
 
@@ -458,25 +384,19 @@
             const table = document.getElementById("resultsTable");
             const tbody = table.getElementsByTagName("tbody")[0];
             const rows = Array.from(tbody.getElementsByTagName("tr"));
-
             sortDirection[columnIndex] = !sortDirection[columnIndex];
             const isAsc = sortDirection[columnIndex];
-
             rows.sort((a, b) => {
                 let aVal = a.getElementsByTagName("td")[columnIndex].innerText;
                 let bVal = b.getElementsByTagName("td")[columnIndex].innerText;
-
                 const aNum = parseFloat(aVal);
                 const bNum = parseFloat(bVal);
-
                 if (!isNaN(aNum) && !isNaN(bNum)) {
                     return isAsc ? aNum - bNum : bNum - aNum;
                 }
                 return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
             });
-
             rows.forEach(row => tbody.appendChild(row));
-
             document.querySelectorAll('.sort-icon').forEach((icon, idx) => {
                 icon.innerText = idx === columnIndex ? (isAsc ? '↑' : '↓') : '↕';
             });
