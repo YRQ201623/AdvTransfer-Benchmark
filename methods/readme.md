@@ -14,5 +14,5 @@ This directory contains the implementation of all supported adversarial transfer
 from fia_pytorch import FIAAttack
 
 # Example usage
-attack = FIAAttack(model, epsilon=16/255, ...)
+attack = FIA_Attack(model, epsilon=16/255, ...)
 adv = attack(image, label)
