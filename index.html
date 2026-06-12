@@ -52,7 +52,7 @@
         .feature-title { font-size: 1.15rem; font-weight: 700; color: #667eea; margin-bottom: 10px; }
         .feature-desc { font-size: 0.95rem; color: #718096; line-height: 1.6; }
 
-        /* ========== Supported Attack Methods — 蓝色系 ========== */
+        /* Supported Attack Methods */
         .methods-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 10px; }
         .method-item {
             background: white;
@@ -121,7 +121,7 @@
             color: #718096;
         }
 
-        /* ========== Verification 模块 — 绿色系 ========== */
+        /* Verification */
         .verify-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 10px; }
         .verify-item {
             background: white;
@@ -203,6 +203,142 @@
         }
         .verify-meta a:hover { color: #38a169; }
 
+        /* ========== Image Caption Attack — 新风格：横向条带 ========== */
+        .caption-list { margin-top: 10px; }
+        .caption-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #edf2f7;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .caption-row:last-child { border-bottom: none; }
+        .caption-row:hover {
+            background: linear-gradient(to right, rgba(237,137,54,0.03), transparent);
+            padding-left: 12px;
+            margin-left: -12px;
+            border-radius: 0 8px 8px 0;
+        }
+        /* 左侧橙色竖条 */
+        .caption-row::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 50%;
+            transform: translateY(-50%);
+            width: 4px; height: 60%;
+            background: linear-gradient(to bottom, #ed8936, #dd6b20);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .caption-row:hover::before { opacity: 1; }
+        .caption-left {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 1px solid #fed7aa;
+        }
+        .caption-main {
+            flex: 1;
+            min-width: 0;
+        }
+        .caption-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .caption-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #c05621;
+            text-decoration: none;
+        }
+        .caption-title:hover { text-decoration: underline; }
+        .caption-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .badge-orange {
+            color: #c05621;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+        .badge-orange:hover {
+            background: #ed8936;
+            color: white;
+            border-color: #ed8936;
+        }
+        .caption-text {
+            font-size: 0.95rem;
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .caption-links {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+        }
+        .caption-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+        }
+        .caption-links a:hover { color: #dd6b20; }
+        .caption-right {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .caption-btn {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .btn-code {
+            color: #c05621;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+        .btn-code:hover {
+            background: #ed8936;
+            color: white;
+            border-color: #ed8936;
+        }
+        .btn-doc {
+            color: #718096;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+        }
+        .btn-doc:hover {
+            background: #718096;
+            color: white;
+            border-color: #718096;
+        }
+
         /* Table */
         .table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 15px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: white; }
@@ -223,6 +359,8 @@
             .features-grid { grid-template-columns: 1fr; }
             .methods-grid { grid-template-columns: 1fr; }
             .verify-grid { grid-template-columns: 1fr; }
+            .caption-row { flex-direction: column; gap: 12px; }
+            .caption-right { flex-direction: row; }
             th, td { padding: 10px 12px; font-size: 0.85rem; }
         }
     </style>
@@ -296,7 +434,6 @@
             </div>
         </div>
 
-        <!-- ========== Supported Attack Methods — 蓝色系 ========== -->
         <div class="card">
             <div class="card-title">
                 <span>📚</span>
@@ -304,7 +441,6 @@
             </div>
             <div class="methods-grid">
 
-                <!-- FIA -->
                 <div class="method-item">
                     <span class="method-icon">📄</span>
                     <div class="method-header">
@@ -320,7 +456,6 @@
                     <div class="method-venue">ICCV 2021</div>
                 </div>
 
-                <!-- MFAA -->
                 <div class="method-item">
                     <span class="method-icon">📄</span>
                     <div class="method-header">
@@ -333,12 +468,9 @@
                     <div class="method-venue">TIFS 2025</div>
                 </div>
 
-             
-
             </div>
         </div>
 
-        <!-- ========== Verification 模块 — 绿色系 ========== -->
         <div class="card">
             <div class="card-title" style="color: #38a169; border-bottom-color: #c6f6d5;">
                 <span>🧪</span>
@@ -384,6 +516,72 @@
                         <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/verify-methods/verification_readme.md" target="_blank">
                             📁 redeme.md/
                         </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ========== Image Caption Attack — 新风格：横向条带 ========== -->
+        <div class="card">
+            <div class="card-title" style="color: #c05621; border-bottom-color: #fed7aa;">
+                <span>🖼️</span>
+                <span>Image Caption Attack</span>
+            </div>
+            <div class="caption-list">
+
+                <div class="caption-row">
+                    <div class="caption-left">🧠</div>
+                    <div class="caption-main">
+                        <div class="caption-top">
+                            <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Image_caption_attack/BLIP_verify.py" 
+                               class="caption-title" target="_blank">BLIP_verify.py</a>
+                            <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Image_caption_attack/BLIP_verify.py" 
+                               class="caption-badge badge-orange" target="_blank">PyTorch</a>
+                        </div>
+                        <div class="caption-text">
+                            Evaluate adversarial transferability against Vision-Language Models (BLIP). 
+                            Compare original vs. adversarial image captions to measure attack success on image captioning tasks.
+                        </div>
+                        <div class="caption-links">
+                            <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/tree/main/Image_caption_attack" target="_blank">
+                                📁 Image_caption_attack/
+                            </a>
+                            <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Image_caption_attack/README.md" target="_blank">
+                                📖 Docs
+                            </a>
+                        </div>
+                    </div>
+                    <div class="caption-right">
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Image_caption_attack/BLIP_verify.py" 
+                           class="caption-btn btn-code" target="_blank">Code</a>
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Image_caption_attack/README.md" 
+                           class="caption-btn btn-doc" target="_blank">Docs</a>
+                    </div>
+                </div>
+
+                <div class="caption-row">
+                    <div class="caption-left">📄</div>
+                    <div class="caption-main">
+                        <div class="caption-top">
+                            <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Image_caption_attack/README.md" 
+                               class="caption-title" target="_blank">README.md</a>
+                            <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Image_caption_attack/README.md" 
+                               class="caption-badge badge-orange" target="_blank">Docs</a>
+                        </div>
+                        <div class="caption-text">
+                            Documentation for image caption attack verification. Includes BLIP model setup, 
+                            semantic similarity evaluation, and batch testing instructions.
+                        </div>
+                        <div class="caption-links">
+                            <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/tree/main/Image_caption_attack" target="_blank">
+                                📁 Image_caption_attack/
+                            </a>
+                        </div>
+                    </div>
+                    <div class="caption-right">
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Image_caption_attack/README.md" 
+                           class="caption-btn btn-doc" target="_blank">Read</a>
                     </div>
                 </div>
 
