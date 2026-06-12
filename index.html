@@ -393,7 +393,7 @@
                 CSS Grid 布局：二维布局系统，可以同时控制行和列。
                 比 flex 更适合这种"多行多列"的卡片网格。
             */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(4, 1fr);  /* 固定 4 列 */
             /* 
                 这行是响应式网格的核心：
                 - repeat：重复创建列
