@@ -236,4 +236,400 @@
             margin-bottom: 15px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
             /* 
-                text-shadow：文字
+                text-shadow：文字阴影。
+                0：水平偏移（不左右偏）
+                2px：垂直偏移（向下 2px）
+                10px：模糊半径（越大越模糊）
+                rgba(0,0,0,0.2)：黑色，20% 透明度
+                效果：文字下方有淡淡的阴影，增加立体感，让白色文字在渐变背景上更清晰。
+            */
+        }
+
+        /* Hero 副标题 */
+        .hero p {
+            font-size: 1.2rem;
+            /* 1.2rem ≈ 19px */
+            color: rgba(255,255,255,0.9);
+            /* 白色，90% 不透明，比纯白色稍微柔和一点 */
+            max-width: 700px;
+            /* 副标题比主标题窄，形成视觉层次 */
+            margin: 0 auto;
+            /* 水平居中 */
+        }
+
+        /* ========== 内容容器 ========== */
+        .container {
+            max-width: 1100px;
+            /* 内容最大宽度 1100px，比 Hero 宽一些，因为内容区需要放更多东西 */
+            margin: -40px auto 0;
+            /* 
+                margin-top: -40px 是"负边距"，让容器向上移动 40px。
+                这样 Overview 卡片会"叠"进 Hero 的底部，形成参考图里的重叠效果。
+                margin-left/right: auto：水平居中。
+                margin-bottom: 0：暂时不需要底部外边距。
+            */
+            padding: 0 20px 60px;
+            /* 上 0（已经用负边距顶上去了），左右 20px，下 60px */
+            position: relative;
+            z-index: 2;
+            /* 
+                z-index: 2 确保内容区在 Hero 之上（Hero 的 ::before 是 z-index: auto）。
+                这样卡片才能"浮"在渐变背景上面。
+            */
+        }
+
+        /* ========== 通用卡片样式 ========== */
+        .card {
+            background: white;
+            /* 白色背景，和页面的浅灰背景形成对比 */
+            border-radius: 16px;
+            /* 圆角 16px，现代网页常用的大圆角，比小圆角更柔和 */
+            padding: 35px;
+            /* 卡片内部留白 */
+            margin-bottom: 30px;
+            /* 卡片之间的垂直间距 */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            /* 
+                box-shadow：卡片阴影。
+                0：水平偏移
+                10px：垂直偏移（向下 10px，阴影在下方）
+                40px：模糊半径（很大，所以阴影很柔和）
+                rgba(0,0,0,0.08)：黑色，8% 透明度（很淡）
+                效果：卡片像"浮"在背景之上，有层次感。
+            */
+            border: 1px solid rgba(0,0,0,0.04);
+            /* 
+                1px 极细的边框，几乎透明。
+                作用：在白色背景上（比如投影不够明显时），给卡片一个微弱的边界。
+            */
+        }
+
+        /* 卡片标题 */
+        .card-title {
+            font-size: 1.5rem;
+            /* 1.5rem ≈ 24px */
+            font-weight: 700;
+            /* 粗体 */
+            color: #667eea;
+            /* 蓝紫色，和 Hero 渐变的主色一致，形成视觉统一 */
+            margin-bottom: 20px;
+            /* 标题和下方内容的间距 */
+            display: flex;
+            /* 
+                flex 弹性布局：让图标和文字横向排列。
+                默认 div 是块级元素，会独占一行。
+            */
+            align-items: center;
+            /* flex 子元素垂直居中对齐 */
+            gap: 10px;
+            /* flex 子元素之间的间距（图标和文字之间） */
+            padding-bottom: 12px;
+            /* 标题下方留白 */
+            border-bottom: 2px solid #e2e8f0;
+            /* 
+                标题下方的灰色分割线。
+                #e2e8f0 是很浅的灰色，比黑色柔和。
+            */
+        }
+
+        /* ========== Overview 卡片特殊样式 ========== */
+        .overview-card {
+            border-left: 4px solid #667eea;
+            /* 
+                左侧 4px 宽的蓝紫色竖线。
+                这是 Overview 卡片最显著的视觉特征，参考图里很明显。
+            */
+            background: linear-gradient(to right, rgba(102,126,234,0.05), white);
+            /* 
+                从左到右的微弱渐变：
+                起点是蓝紫色（rgba(102,126,234,0.05) = 5% 透明度），终点是纯白。
+                这样左侧竖线周围有一点点底色，不会显得突兀。
+            */
+        }
+
+        /* Overview 正文段落 */
+        .overview-text {
+            font-size: 1.05rem;
+            /* 比默认 1rem 稍大一点点，提高可读性 */
+            color: #4a5568;
+            /* 深灰色，比标题色浅，形成层次 */
+            margin-bottom: 15px;
+            /* 段落之间的间距 */
+        }
+
+        /* 
+            :last-child 是伪类，选中"最后一个子元素"。
+            这里选中最后一个 .overview-text，去掉它的下边距。
+            否则卡片底部会多出来 15px 空白。
+        */
+        .overview-text:last-child { 
+            margin-bottom: 0; 
+        }
+
+        /* Overview 里的链接 */
+        .overview-text a {
+            color: #667eea;
+            /* 链接颜色用主题蓝紫色 */
+            text-decoration: none;
+            /* 去掉默认的下划线 */
+            font-weight: 600;
+            /* 半粗体，让链接更醒目 */
+            border-bottom: 1px dashed #667eea;
+            /* 用虚线代替默认下划线，更有设计感 */
+        }
+
+        /* 
+            :hover 是伪类，只在鼠标悬停时生效。
+            鼠标放上去时，虚线变实线。
+        */
+        .overview-text a:hover { 
+            border-bottom-style: solid; 
+        }
+
+        /* ========== Key Features 网格布局 ========== */
+        .features-grid {
+            display: grid;
+            /* 
+                CSS Grid 布局：二维布局系统，可以同时控制行和列。
+                比 flex 更适合这种"多行多列"的卡片网格。
+            */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            /* 
+                这行是响应式网格的核心：
+                - repeat：重复创建列
+                - auto-fit：自动填满可用空间
+                - minmax(280px, 1fr)：每列最小 280px，最大 1fr（平分剩余空间）
+                效果：
+                - 屏幕宽时（>1200px）：一行 4 列
+                - 中等宽度（~900px）：一行 3 列
+                - 较窄（~600px）：一行 2 列
+                - 手机（<600px）：自动变成 1 列（因为 1fr 会压缩到小于 280px，触发 minmax 的换行）
+            */
+            gap: 20px;
+            /* 网格项之间的间距（水平和垂直都是 20px） */
+            margin-top: 10px;
+            /* 网格顶部和标题之间稍微留点空间 */
+        }
+
+        /* 单个特性卡片 */
+        .feature-item {
+            background: white;
+            border-radius: 12px;
+            /* 比外层卡片稍小的圆角，形成层次 */
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+            /* 浅灰色边框，默认状态下很淡 */
+            transition: all 0.3s ease;
+            /* 
+                transition 控制属性变化的过渡动画。
+                all：所有属性变化都有动画。
+                0.3s：动画时长 0.3 秒。
+                ease：平滑过渡（先快后慢）。
+                这样鼠标放上去时，上浮和阴影变化不会"跳"，而是平滑过渡。
+            */
+            position: relative;
+            /* 为 ::before 伪元素的 absolute 定位提供参考 */
+            overflow: hidden;
+            /* 隐藏顶部线条动画时可能溢出的部分 */
+        }
+
+        /* 特性卡片顶部彩色线条（默认隐藏） */
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            /* 一条 3px 高的横线 */
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            /* 蓝紫渐变 */
+            transform: scaleX(0);
+            /* 
+                scaleX(0) 把元素在 X 轴方向缩放到 0，即"隐藏"。
+                默认状态下这条线是看不见的。
+            */
+            transform-origin: left;
+            /* 缩放的原点在左侧，这样动画会从左往右展开 */
+            transition: transform 0.3s ease;
+            /* 缩放变化也有 0.3 秒动画 */
+        }
+
+        /* 鼠标悬停在特性卡片上时 */
+        .feature-item:hover {
+            transform: translateY(-5px);
+            /* 向上移动 5px，"浮起来"的感觉 */
+            box-shadow: 0 15px 35px rgba(102,126,234,0.15);
+            /* 
+                阴影变大、变蓝。
+                15px 垂直偏移，35px 模糊，蓝紫色 15% 透明度。
+            */
+            border-color: #667eea;
+            /* 边框变成主题蓝紫色 */
+        }
+
+        /* 悬停时顶部线条展开 */
+        .feature-item:hover::before { 
+            transform: scaleX(1); 
+            /* scaleX(1) 恢复原始宽度，从左到右展开 */
+        }
+
+        /* 特性图标 */
+        .feature-icon {
+            font-size: 1.8rem;
+            /* emoji 图标大小 */
+            margin-bottom: 12px;
+            /* 图标和标题的间距 */
+            display: block;
+            /* 块级显示，独占一行 */
+        }
+
+        /* 特性标题 */
+        .feature-title {
+            font-size: 1.15rem;
+            /* 约 18.4px */
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        /* 特性描述 */
+        .feature-desc {
+            font-size: 0.95rem;
+            /* 约 15px，比正文稍小 */
+            color: #718096;
+            /* 浅灰色，比标题更淡，形成层次 */
+            line-height: 1.6;
+        }
+
+        /* ========== 手机端适配 ========== */
+        /* 
+            @media 是媒体查询，只在括号里的条件满足时生效。
+            max-width: 768px 表示：屏幕宽度 ≤ 768px（手机/小平板）时，应用这些样式。
+        */
+        @media (max-width: 768px) {
+            .hero h1 { 
+                font-size: 2rem; 
+                /* 手机上标题从 2.8rem 缩小到 2rem，防止换行 */
+            }
+            .hero p { 
+                font-size: 1rem; 
+                /* 副标题也缩小 */
+            }
+            .card { 
+                padding: 25px; 
+                /* 手机上卡片内边距减小，节省空间 */
+            }
+            .features-grid { 
+                grid-template-columns: 1fr; 
+                /* 手机上强制变成 1 列，每个卡片独占一行 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        body 里的内容会按顺序渲染在页面上。
+        浏览器从上往下解析，遇到标签就显示。
+    -->
+
+    <!-- Hero 顶部区域 -->
+    <section class="hero">
+        <!-- 
+            section 是语义化标签，表示"一个独立的区块"。
+            用 section 比用 div 更好，对搜索引擎和屏幕阅读器更友好。
+        -->
+        <div class="hero-content">
+            <!-- div 是通用容器，没有语义，只用来包裹和布局 -->
+            <div class="hero-icon">🚀</div>
+            <!-- 火箭 emoji 作为图标 -->
+            <h1>AdvTransfer Benchmark</h1>
+            <!-- h1 是页面主标题，一个页面最好只有一个 -->
+            <p>A Comprehensive Framework for Fair Evaluation of Adversarial Transferability Methods</p>
+            <!-- p 是段落 -->
+        </div>
+    </section>
+
+    <!-- 内容容器 -->
+    <div class="container">
+        <!-- 这个容器包裹所有卡片，控制最大宽度和居中 -->
+
+        <!-- Overview 卡片 -->
+        <div class="card overview-card">
+            <!-- 
+                一个 div 可以同时有多个 class，用空格分隔。
+                这里同时应用 .card 和 .overview-card 的样式。
+                .card 提供通用样式（白底、圆角、阴影）。
+                .overview-card 提供特殊样式（左侧蓝线、渐变背景）。
+            -->
+            <div class="card-title">
+                <span>📋</span>
+                <!-- span 是行内容器，用来包裹图标 -->
+                <span>Overview</span>
+            </div>
+            <p class="overview-text">
+                The AdvTransfer Benchmark provides a rigorous and fair evaluation framework for 
+                adversarial transferability methods. Unlike existing evaluations that use inconsistent 
+                model architectures and preprocessing pipelines, our benchmark establishes unified conditions 
+                where all attack methods compete on equal footing.
+            </p>
+            <p class="overview-text">
+                This platform implements representative transferability methods including NAA, COPIA, 
+                and their variants with a <a href="#">unified codebase</a>, 
+                <!-- 
+                    a 是超链接。
+                    href="#" 是占位符，# 表示当前页面顶部。
+                    实际使用时要替换成真实的 URL，比如 href="https://github.com/..."。
+                -->
+                ensuring fair comparison across different algorithmic innovations. The benchmark 
+                systematically removes advantages from model ensemble and unlimited query budgets, 
+                providing a transparent baseline for evaluating black-box adversarial attacks.
+            </p>
+        </div>
+
+        <!-- Key Features 卡片 -->
+        <div class="card">
+            <div class="card-title">
+                <span>🌟</span>
+                <span>Key Features</span>
+            </div>
+            <div class="features-grid">
+                <!-- 6 个特性卡片，每个都是独立的 div -->
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <div class="feature-title">Unified Architecture</div>
+                    <div class="feature-desc">All methods are evaluated on identical network structures...</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚙️</span>
+                    <div class="feature-title">Standardized Settings</div>
+                    <div class="feature-desc">Consistent training schedules, optimizers...</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🚫</span>
+                    <div class="feature-title">No External Data</div>
+                    <div class="feature-desc">Strict prohibition of using additional or synthetic data...</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-title">Dual-Metric Framework</div>
+                    <div class="feature-desc">Evaluates both robustness performance...</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🔬</span>
+                    <div class="feature-title">Comprehensive Evaluation</div>
+                    <div class="feature-desc">Multiple attack strengths and evaluation protocols...</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🔄</span>
+                    <div class="feature-title">Unified Implementation</div>
+                    <div class="feature-desc">All methods implemented in a single framework...</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
