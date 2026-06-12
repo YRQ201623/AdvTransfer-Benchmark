@@ -339,6 +339,88 @@
             border-color: #718096;
         }
 
+        /* ========== Visualization Methods — 紫色系 ========== */
+        .visualization-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 10px; }
+        .vis-item {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #805ad5;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .vis-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, #805ad5, #6b46c1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .vis-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(128,90,213,0.12);
+            border-color: #805ad5;
+        }
+        .vis-item:hover::before { transform: scaleX(1); }
+        .vis-icon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
+        .vis-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .vis-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #6b46c1;
+            text-decoration: none;
+        }
+        .vis-name:hover { text-decoration: underline; }
+        .vis-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid;
+            color: #6b46c1;
+            background: rgba(128,90,213,0.08);
+            border-color: rgba(128,90,213,0.3);
+        }
+        .vis-tag:hover {
+            background: #805ad5;
+            color: white;
+        }
+        .vis-desc {
+            font-size: 0.95rem;
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .vis-meta {
+            font-size: 0.85rem;
+            color: #a0aec0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .vis-meta a {
+            color: #718096;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+        }
+        .vis-meta a:hover { color: #805ad5; }
+
         /* Table */
         .table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 15px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: white; }
@@ -361,6 +443,7 @@
             .verify-grid { grid-template-columns: 1fr; }
             .caption-row { flex-direction: column; gap: 12px; }
             .caption-right { flex-direction: row; }
+            .visualization-grid { grid-template-columns: 1fr; }
             th, td { padding: 10px 12px; font-size: 0.85rem; }
         }
     </style>
@@ -580,6 +663,59 @@
                            class="caption-btn btn-doc" target="_blank">Read</a>
                     </div>
                 </div>
+
+        <!-- ========== Visualization Methods — 紫色系 ========== -->
+        <div class="card">
+            <div class="card-title" style="color: #805ad5; border-bottom-color: #e9d8fd;">
+                <span>📊</span>
+                <span>Visualization Methods</span>
+            </div>
+            <div class="visualization-grid">
+
+                <div class="vis-item">
+                    <span class="vis-icon">🔥</span>
+                    <div class="vis-header">
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Visualization-methods/CAM_visualization.py" 
+                           class="vis-name" target="_blank">CAM_visualization.py</a>
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Visualization-methods/CAM_visualization.py" 
+                           class="vis-tag" target="_blank">PyTorch</a>
+                    </div>
+                    <div class="vis-desc">
+                        Class Activation Mapping (CAM) visualization for adversarial samples. 
+                        Compare attention heatmaps before and after attacks to analyze how adversarial 
+                        perturbations shift model focus regions.
+                    </div>
+                    <div class="vis-meta">
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/tree/main/Visualization-methods" target="_blank">
+                            📁 Visualization-methods/
+                        </a>
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Visualization-methods/visualization_readme.md" target="_blank">
+                            📖 Docs
+                        </a>
+                    </div>
+                </div>
+
+                <div class="vis-item">
+                    <span class="vis-icon">📄</span>
+                    <div class="vis-header">
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Visualization-methods/visualization_readme.md" 
+                           class="vis-name" target="_blank">visualization_readme.md</a>
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/blob/main/Visualization-methods/visualization_readme.md" 
+                           class="vis-tag" target="_blank">Docs</a>
+                    </div>
+                    <div class="vis-desc">
+                        Complete documentation for visualization tools. Includes environment setup, 
+                        usage examples, supported models and layers, and output interpretation guide.
+                    </div>
+                    <div class="vis-meta">
+                        <a href="https://github.com/YRQ201623/AdvTransfer-Benchmark/tree/main/Visualization-methods" target="_blank">
+                            📁 Visualization-methods/
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
             </div>
         </div>
