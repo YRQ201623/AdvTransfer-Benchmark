@@ -1,254 +1,239 @@
 <!DOCTYPE html>
+<!-- 
+    DOCTYPE 声明：告诉浏览器这是一个 HTML5 文档。
+    如果不写，浏览器会进入"怪异模式"，CSS 布局可能出错。
+-->
 <html lang="zh-CN">
+<!-- 
+    html 标签：整个网页的根元素。
+    lang="zh-CN"：声明页面语言是简体中文，对搜索引擎和屏幕阅读器有用。
+-->
+
 <head>
+    <!-- head 标签：放网页的"元数据"，用户看不到，但浏览器和搜索引擎需要 -->
+    
     <meta charset="UTF-8">
+    <!-- 
+        charset="UTF-8"：指定字符编码为 UTF-8。
+        如果不写，中文可能显示为乱码（尤其是 Windows 默认 GBK 环境）。
+    -->
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+        viewport：控制手机端如何显示网页。
+        width=device-width：让网页宽度等于手机屏幕宽度。
+        initial-scale=1.0：初始缩放比例为 1（不放大不缩小）。
+        如果不写这个，手机打开网页会显示为"缩小版桌面网站"。
+    -->
+    
     <title>AdvTransfer Benchmark</title>
+    <!-- 
+        title：浏览器标签页上显示的标题，也是搜索引擎结果里的标题。
+    -->
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* 
+            style 标签：内嵌 CSS 样式。
+            也可以把 CSS 单独写在 .css 文件里，用 <link> 引入。
+        */
+        
+        /* ========== 全局重置 ========== */
+        * { 
+            /* 
+                * 是"通配符选择器"，选中页面上的所有元素。
+                为什么要重置？因为不同浏览器（Chrome/Firefox/Safari）对 h1/p/body 等元素
+                有默认的 margin/padding，会导致布局不一致。
+            */
+            margin: 0;      /* 去掉所有元素的外边距 */
+            padding: 0;     /* 去掉所有元素的内边距 */
+            box-sizing: border-box;  
+            /* 
+                box-sizing 控制"宽高计算方式"：
+                - content-box（默认）：width 只包含内容，border 和 padding 额外加在外面
+                - border-box：width 包含内容 + padding + border，更符合直觉
+                用 border-box 后，设置 width: 100px 就是最终看到的 100px，不会溢出。
+            */
+        }
 
+        /* ========== body 页面基础样式 ========== */
         body {
+            /* 
+                body 是网页的可见内容容器。
+                所有直接放在 <body> 里的元素都会显示在页面上。
+            */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            /* 
+                font-family 是字体回退栈：
+                - -apple-system：苹果系统字体（San Francisco）
+                - BlinkMacSystemFont：Chrome 在 Mac 上的系统字体
+                - "Segoe UI"：Windows 系统字体
+                - Roboto：Android 字体
+                - Arial：最后的通用无衬线字体
+                - sans-serif：终极回退，任何无衬线字体
+                这样写是为了在不同操作系统上都显示为"系统默认字体"，看起来最自然。
+            */
             background-color: #f5f7fa;
+            /* 
+                页面整体背景色：浅灰蓝色。
+                #f5f7fa 是十六进制颜色码：
+                - f5 = 红(245), f7 = 绿(247), fa = 蓝(250)
+                三个值接近，所以是偏蓝的浅灰色。
+            */
             color: #2d3748;
+            /* 
+                页面默认文字颜色：深灰蓝色。
+                不用纯黑 #000000，因为深灰色在屏幕上更柔和、更高级。
+            */
             line-height: 1.6;
+            /* 
+                行高：1.6 倍字体大小。
+                1.6 是中文阅读体验较好的值，太小拥挤，太大松散。
+            */
         }
 
-        /* ========== Hero 顶部 ========== */
+        /* ========== Hero 顶部区域 ========== */
         .hero {
+            /* 
+                .hero 是"类选择器"，选中所有 class="hero" 的元素。
+                这里对应 <section class="hero">。
+            */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* 
+                linear-gradient：线性渐变背景。
+                135deg：渐变方向，从左上到右下（0deg=上到下，90deg=左到右）。
+                #667eea 0%：起点颜色（蓝紫色）。
+                #764ba2 100%：终点颜色（深紫色）。
+                两个颜色形成从蓝到紫的渐变，是现代网页常见的"高级感"配色。
+            */
             padding: 60px 20px 80px;
+            /* 
+                padding 是内边距，顺序为上、右、下、左（顺时针）。
+                60px 上：顶部留白
+                20px 左右：防止文字贴边
+                80px 下：底部多留一些，因为 Overview 卡片会向上叠进来
+            */
             text-align: center;
+            /* 内部文字水平居中 */
             position: relative;
+            /* 
+                position: relative 开启"相对定位"。
+                这样内部的 ::before 伪元素可以用 absolute 定位相对于它定位。
+                如果不写，absolute 会相对于整个页面定位。
+            */
             overflow: hidden;
+            /* 
+                overflow: hidden 隐藏溢出内容。
+                这里配合 ::before 伪元素使用，防止那个巨大的网格背景超出 Hero 区域。
+            */
         }
+
+        /* 
+            ::before 是"伪元素"，在每个 .hero 元素内部最前面插入一个虚拟元素。
+            不需要在 HTML 里写，CSS 自动生成。
+            这里用来创建背景上的网格点纹理。
+        */
         .hero::before {
             content: '';
+            /* 
+                content: '' 是伪元素必须的属性，即使内容为空也要写。
+                表示这个伪元素没有文字内容。
+            */
             position: absolute;
+            /* 
+                absolute 绝对定位，相对于最近的 position 不是 static 的父元素。
+                这里父元素 .hero 是 relative，所以相对于 .hero 定位。
+            */
             top: -50%;
             left: -50%;
+            /* 
+                把伪元素向左上移动自身宽高的一半。
+                因为后面 width/height 是 200%，所以中心点正好和 .hero 重合。
+            */
             width: 200%;
             height: 200%;
+            /* 宽高都是父元素的 2 倍，覆盖整个区域 */
             background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            /* 
+                radial-gradient：径向渐变，创建圆形点。
+                circle：圆形渐变。
+                rgba(255,255,255,0.1) 1px：白色半透明，半径 1px（小圆点）。
+                transparent 1px：透明，和前面同色同大小，形成"点"的效果。
+                实际上这个写法创建了间隔排列的小白点。
+            */
             background-size: 20px 20px;
+            /* 每个点之间的间距是 20x20 像素 */
             opacity: 0.3;
+            /* 整体透明度 30%，让纹理很淡，不抢主内容的风头 */
         }
+
+        /* Hero 内容容器 */
         .hero-content {
             position: relative;
+            /* 再次开启相对定位，确保 z-index 生效 */
             z-index: 1;
+            /* 
+                z-index 控制层叠顺序，数字大的在上面。
+                ::before 伪元素没有 z-index（默认 auto），所以这里 z-index: 1
+                确保文字内容在网格纹理之上。
+            */
             max-width: 900px;
+            /* 最大宽度 900px，防止在大显示器上文字拉得太长，影响阅读 */
             margin: 0 auto;
+            /* 
+                margin: 0 auto 是经典的"水平居中"写法。
+                上下 margin 为 0，左右 margin 自动平分剩余空间。
+            */
         }
+
+        /* 火箭图标 */
         .hero-icon {
             font-size: 48px;
+            /* emoji 也是文字，用 font-size 控制大小 */
             margin-bottom: 15px;
+            /* 图标和下方标题的间距 */
             display: inline-block;
+            /* 
+                默认 span 是 inline（行内），不能设置 margin/动画。
+                inline-block 让它既有行内特性（不独占一行），又能设置宽高和 margin。
+            */
             animation: float 3s ease-in-out infinite;
+            /* 
+                animation 应用动画：
+                - float：动画名称（下面 @keyframes 定义）
+                - 3s：一个周期 3 秒
+                - ease-in-out：慢开始、慢结束，中间快（平滑）
+                - infinite：无限循环
+            */
         }
+
+        /* 
+            @keyframes 定义动画的关键帧。
+            float 是动画名称，可以自定义。
+        */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
+            /* 0%（开始）和 100%（结束）：垂直位置不变 */
             50% { transform: translateY(-10px); }
+            /* 50%（中间）：向上移动 10px */
         }
+        /* 整体效果：图标上下浮动，形成"呼吸感" */
+
+        /* Hero 大标题 */
         .hero h1 {
+            /* 
+                后代选择器：选中 .hero 内部的所有 h1。
+                这样不会影响页面其他地方的 h1。
+            */
             font-size: 2.8rem;
+            /* 
+                rem 是"根元素字体大小的倍数"。
+                默认 html 字体大小是 16px，所以 2.8rem = 44.8px。
+                用 rem 而不是 px 的好处是：用户如果调大浏览器字体，页面会跟着缩放。
+            */
             color: white;
             font-weight: 700;
+            /* font-weight: 700 是粗体（normal 是 400） */
             margin-bottom: 15px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.9);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* ========== 容器 ========== */
-        .container {
-            max-width: 1100px;
-            margin: -40px auto 0;
-            padding: 0 20px 60px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ========== 通用卡片样式 ========== */
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 35px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        /* ========== Overview 卡片 ========== */
-        .overview-card {
-            border-left: 4px solid #667eea;
-            background: linear-gradient(to right, rgba(102,126,234,0.05), white);
-        }
-        .overview-text {
-            font-size: 1.05rem;
-            color: #4a5568;
-            margin-bottom: 15px;
-        }
-        .overview-text:last-child { margin-bottom: 0; }
-        .overview-text a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px dashed #667eea;
-        }
-        .overview-text a:hover { border-bottom-style: solid; }
-
-        /* ========== Key Features 网格 ========== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 10px;
-        }
-        .feature-item {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        /* 顶部彩色线条 */
-        .feature-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(102,126,234,0.15);
-            border-color: #667eea;
-        }
-        .feature-item:hover::before { transform: scaleX(1); }
-        .feature-icon {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            display: block;
-        }
-        .feature-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        .feature-desc {
-            font-size: 0.95rem;
-            color: #718096;
-            line-height: 1.6;
-        }
-
-        /* ========== 手机适配 ========== */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
-            .card { padding: 25px; }
-            .features-grid { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Hero 顶部 -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-icon">🚀</div>
-            <h1>AdvTransfer Benchmark</h1>
-            <p>A Comprehensive Framework for Fair Evaluation of Adversarial Transferability Methods</p>
-        </div>
-    </section>
-
-    <!-- 内容区 -->
-    <div class="container">
-
-        <!-- Overview -->
-        <div class="card overview-card">
-            <div class="card-title">
-                <span>📋</span>
-                <span>Overview</span>
-            </div>
-            <p class="overview-text">
-                The AdvTransfer Benchmark provides a rigorous and fair evaluation framework for 
-                adversarial transferability methods. Unlike existing evaluations that use inconsistent 
-                model architectures and preprocessing pipelines, our benchmark establishes unified conditions 
-                where all attack methods compete on equal footing.
-            </p>
-            <p class="overview-text">
-                This platform implements representative transferability methods including NAA, COPIA, 
-                and their variants with a <a href="#">unified codebase</a>, ensuring fair comparison 
-                across different algorithmic innovations. The benchmark systematically removes advantages 
-                from model ensemble and unlimited query budgets, providing a transparent baseline for 
-                evaluating black-box adversarial attacks.
-            </p>
-        </div>
-
-        <!-- Key Features -->
-        <div class="card">
-            <div class="card-title">
-                <span>🌟</span>
-                <span>Key Features</span>
-            </div>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <span class="feature-icon">🎯</span>
-                    <div class="feature-title">Unified Architecture</div>
-                    <div class="feature-desc">All methods are evaluated on identical network structures, eliminating performance differences arising from architectural advantages rather than training procedures.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">⚙️</span>
-                    <div class="feature-title">Standardized Settings</div>
-                    <div class="feature-desc">Consistent training schedules, optimizers, learning rate policies, and data augmentation strategies prevent the experimental setup from favoring any particular method.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🚫</span>
-                    <div class="feature-title">No External Data</div>
-                    <div class="feature-desc">Strict prohibition of using additional or synthetic data beyond the original benchmark training set ensures observed gains stem solely from the learning algorithm.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">📊</span>
-                    <div class="feature-title">Dual-Metric Framework</div>
-                    <div class="feature-desc">Evaluates both robustness performance (accuracy against strong attacks) and computational cost (GPU hours and memory footprint).</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🔬</span>
-                    <div class="feature-title">Comprehensive Evaluation</div>
-                    <div class="feature-desc">Multiple attack strengths and evaluation protocols provide a complete picture of each method's robustness-accuracy trade-off.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🔄</span>
-                    <div class="feature-title">Unified Implementation</div>
-                    <div class="feature-desc">All methods implemented in a single framework with consistent coding style, reducing implementation bias and improving reproducibility.</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</body>
-</html>
+            /* 
+                text-shadow：文字
